@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from todo.models import Items
 
 
+# Вывод записей для УРЛа с фильтом "done" (сделано).
 def todo_out_done(request):
     items = Items.objects.filter(status=Items.Status.done)
     return render(request, 'todo/output.html', {'items': [
@@ -17,6 +18,7 @@ def todo_out_done(request):
     })
 
 
+# Вывод всех записей для любого УРЛа
 class ToDoOutAll(TemplateView):
     template_name = 'todo/output.html'
 
@@ -34,6 +36,7 @@ class ToDoOutAll(TemplateView):
         }
 
 
+# Вывод записей для УРЛов, в которых вводиться дата в формате ГГГГ-ММ-ДД, или название события, или ИД
 class ToDoOutDateID(TemplateView):
     template_name = 'todo/output.html'
 
