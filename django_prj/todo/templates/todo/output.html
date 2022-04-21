@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>What i have to do this week</title>
+</head>
+<body>
+<table border="1" cellpadding="5" cellspacing="0" align="center">
+    <caption>Органайзер</caption>
+    <tr>
+        <td align="center"> Date: </td>
+        <td align="center"> Description: </td>
+        <td align="center"> Importance: </td>
+        <td align="center"> Status: </td>
+    </tr>
+        {% if items == 'No record' %}
+        <tr><td colspan="4" align="center" width="550"> {{ items }} </td><tr>
+        {% else %}
+        {% for item in items %}
+        <tr><td width="150">{{ item.date }} </td>
+        <td width="250">{{ item.name }} </td>
+        <td width="90">{{ item.order }} </td>
+        <td width="90">{{ item.status }} </td></tr>
+        {% endfor %}
+        {% endif %}
+
+</table>
+</body>
+</html>
