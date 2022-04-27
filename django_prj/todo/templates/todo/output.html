@@ -13,16 +13,18 @@
         <td align="center"> Importance: </td>
         <td align="center"> Status: </td>
     </tr>
-        {% if items == 'No record' %}
-        <tr><td colspan="4" align="center" width="550"> {{ items }} </td><tr>
-        {% else %}
-        {% for item in items %}
-        <tr><td width="150">{{ item.date }} </td>
+    {% for item in items %}
+    <tr>
+        <td width="150">{{ item.date }} </td>
         <td width="250">{{ item.name }} </td>
         <td width="90">{{ item.order }} </td>
-        <td width="90">{{ item.status }} </td></tr>
-        {% endfor %}
-        {% endif %}
+        <td width="90">{{ item.status }} </td>
+    </tr>
+    {% empty %}
+        <tr><td colspan="4" align="center" width="550"> No Item </td></tr>
+    {% endfor %}
+
+
 
 </table>
 </body>
