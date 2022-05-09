@@ -16,12 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from todo import views
-from todo.views import ToDoOutDateID, ToDoOutAll, OneItemView
+from todo.views import (
+    ToDoOutDateID,
+    ToDoOutAll,
+    OneItemView,
+    ToDoSerializerView,
+    ItemsSerializerView,
+    ItemsNewPageSerializerView,
+    ItemsRomanSerializerView,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('todo/done/', views.todo_out_done),
-    re_path(r'^|^todo/$', OneItemView.as_view()),
+    path('<str:date>', ToDoSerializerView),
+    path('roman_page/', ItemsRomanSerializerView.as_view()),
+    path('', ItemsNewPageSerializerView.as_view()),
+    path('<str:status>/', ItemsSerializerView.as_view()),
     re_path(r'^todo/(?P<name>[a-zA-Z\s]{0,50})/$|^todo/(?P<group__date>[0-9]{4}.[0-9]{2}.[0-9]{2})/$|'
             '^todo/(?P<id>[0-9]{0,4})/$', ToDoOutDateID.as_view()),
 ]

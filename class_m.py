@@ -19,7 +19,7 @@ class A:
 
     @classmethod
     def b(cls, y):
-        return cls(y)
+        return cls(y*3)
 
     @myclassmethod
     def c(cls, z):
@@ -31,7 +31,8 @@ class B(A):
 
 
 x_1 = B(2)
+x_2 = A(2)
 
-print(type(B.c(1)))
-print(type(B.b(1)))
-print(type(x_1))
+print(A.c(1).x)
+print(A.b(1).x)
+print(x_1.x)

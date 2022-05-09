@@ -10,7 +10,7 @@ class ToDoDate(models.Model):
 
 
 class Items(models.Model):
-    group = models.ForeignKey(ToDoDate, on_delete=models.PROTECT, null=True)
+    group = models.ForeignKey(ToDoDate, on_delete=models.CASCADE, null=True, related_name='items_serialized')
     name = models.CharField(max_length=200, null=False)
 
     class Meta():
