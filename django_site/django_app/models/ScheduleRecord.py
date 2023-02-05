@@ -28,4 +28,4 @@ class Record(BaseModel):
         verbose_name_plural = 'Records'
 
     def __str__(self):
-        return f' {BaseModel.created} - {Record.holder} - {Record.description} - {Record.status}'
+        return f' {self.created} - {self.holder} - {self.description} - {self.status}'
