@@ -1,6 +1,7 @@
 from django.db import models
 from django_app.models.BaseModel import BaseModel
 from django.contrib.auth.models import User
+from datetime import datetime
 
 
 class Record(BaseModel):
@@ -28,4 +29,4 @@ class Record(BaseModel):
         verbose_name_plural = 'Records'
 
     def __str__(self):
-        return f' {self.created} - {self.holder} - {self.description} - {self.status}'
+        return f' {self.created.strftime("%Y-%b-%d")} - {self.holder} - {self.description} - {self.status}'

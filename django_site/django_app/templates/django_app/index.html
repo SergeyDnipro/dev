@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test HTML page</title>
+</head>
+<body>
+    {% for item in items %}
+        <p> {{ item.start_date|date:"d.m.Y H:i:s" }} - {{ item.user }} - {{ item.description }} - {{ item.status }}</p>
+    {% endfor %}
+</body>
+</html>

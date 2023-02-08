@@ -1,7 +1,7 @@
 from django.urls import path, include
-from django_app.views.test_view import index
+from django_app.views.IndexView import StartPage
 
 
 urlpatterns = [
-    path('', index),
+    path('', StartPage.as_view()),
 ]
