@@ -3,6 +3,7 @@ from django_app.models.ScheduleRecord import Record, BaseModel
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from datetime import datetime
+import requests
 
 
 class StartPage(TemplateView):
