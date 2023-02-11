@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ schedule_group__description }}</title>
+</head>
+<body>
+    <p>
+        <a href="/">ГЛАВНАЯ</a>
+        {% for group in groups %}
+            <a href="/{{ group.id }}/">{{ group.description }}</a>
+        {% endfor %}
+    </p>
+    {% for item in items %}
+        <p>{{ item.created|date:"d.m.Y H:i:s" }} - {{ item.holder }} - {{ item.description }} - {{ item.status }}</p>
+    {% endfor %}
+</body>
+</html>

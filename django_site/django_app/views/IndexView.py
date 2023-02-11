@@ -17,6 +17,8 @@ class StartPage(TemplateView):
                 'start_date': items.created,
                 'description' : items.description,
                 'status': items.status,
+                'group' : items.schedule_group.description,
+                'group_id' : items.schedule_group_id,
             }
             for items in result
         ]
