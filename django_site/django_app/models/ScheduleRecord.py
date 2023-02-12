@@ -17,7 +17,7 @@ class Record(BaseModel):
     schedule_group = models.ForeignKey(ScheduleType,
                                        on_delete=models.PROTECT,
                                        verbose_name='GROUP',
-                                       default=ScheduleType.DescriptionList.FAMILY,
+                                       null=True,
                                        )
 
     holder = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='USER', db_index=True)

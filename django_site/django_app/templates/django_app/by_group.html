@@ -2,17 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ schedule_group__description }}</title>
+    <title>{{ holder__username }}</title>
 </head>
 <body>
     <p>
-        <a href="/">ГЛАВНАЯ</a>
-        {% for group in groups %}
-            <a href="/{{ group.id }}/">{{ group.description }}</a>
+        <table width="50%" align="center" border="1">
+        <tr>
+            <td align="center"><a href="/">ALL</a></td>
+        {% for user in users %}
+            <td align="center"><a href="/{{ user.username }}/">{{ user.username }}</a></td>
         {% endfor %}
+        </tr>
+        </table>
     </p>
+        <table width="50%" align="center" border="1">
     {% for item in items %}
-        <p>{{ item.created|date:"d.m.Y H:i:s" }} - {{ item.holder }} - {{ item.description }} - {{ item.status }}</p>
+        <tr>
+            <td>{{ item.created|date:"d.m.Y H:i:s" }}</td>
+            <td>{{ item.holder }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.status }}</td>
+        </tr>
+    {% empty %}
+        <tr> No Task </tr>
     {% endfor %}
+        </table>
 </body>
 </html>

@@ -1,4 +1,5 @@
 from django_app.models.ScheduleRecord import Record
+from django.contrib.auth.models import User
 from django_app.models.ScheduleType import ScheduleType
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -11,5 +12,5 @@ class GroupPage(TemplateView):
 
     def get_context_data(self, **kwargs):
         result = Record.objects.filter(**kwargs)
-        groups = ScheduleType.objects.all
-        return {'items': result, 'groups': groups, **kwargs}
+        users = User.objects.all
+        return {'items': result, 'users': users, **kwargs}

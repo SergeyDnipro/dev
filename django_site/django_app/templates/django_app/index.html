@@ -6,7 +6,7 @@
 </head>
 <body>
     {% for item in items %}
-        <a href="/{{ item.group_id }}/"> {{ item.group }}</a>
+        <a href="/{{ item.user }}/"> {{ item.user }}</a>
     {% endfor %}
     {% for item in items %}
         <p> {{ item.start_date|date:"d.m.Y H:i:s" }} - {{ item.user }} - {{ item.description }} - {{ item.status }} - {{ item.group }}</p>
