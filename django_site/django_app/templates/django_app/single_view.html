@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ holder__username }}</title>
+</head>
+<body>
+{% for item in items %}
+<p>{{ item.created|date:"d.m.Y H:i:s" }}</p>
+<p>{{ item.description }}</p>
+<p>{{ item.status }}</p>
+{% endfor %}
+</body>
+</html>

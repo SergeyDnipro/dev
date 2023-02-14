@@ -14,3 +14,11 @@ class GroupPage(TemplateView):
         result = Record.objects.filter(**kwargs)
         users = User.objects.all
         return {'items': result, 'users': users, **kwargs}
+
+
+class SinglePage(TemplateView):
+    template_name = 'django_app/single_view.html'
+
+    def get_context_data(self, **kwargs):
+        result = Record.objects.filter(**kwargs)
+        return {'items': result, **kwargs}
