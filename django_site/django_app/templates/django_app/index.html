@@ -1,7 +1,7 @@
 {% extends 'django_app/layout/basic.html' %}
 
 {% block content %}
-<table width="70%" align="center" border="1" cellspacing="0">
+<table width="80%" align="center" border="1" cellspacing="0">
 {% for item in items %}
     <tr>
         <td><a href="{% url 'element_page' item.id %}">{{ item.created|date:"d.m.y" }}</a></td>

@@ -11,3 +11,7 @@ class SingleRecordForm(ModelForm):
             'status',
             'schedule_group',
         )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['holder'].disabled = True

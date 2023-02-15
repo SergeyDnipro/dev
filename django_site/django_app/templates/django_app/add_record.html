@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add record</title>
-</head>
-<body>
+{% extends 'django_app/layout/basic.html' %}
+
+{% block content %}
+<div class="my_own_class">
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="ADD">
+    <input type="submit" value="SAVE">
 </form>
-</body>
-</html>
+</div>
+{% endblock %}}

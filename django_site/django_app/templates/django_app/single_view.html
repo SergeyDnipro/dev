@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ holder__username }}</title>
+    <title>USER - {{ holder__username }}</title>
 </head>
 <body>
 {% for item in items %}
@@ -10,5 +10,10 @@
 <p>{{ item.description }}</p>
 <p>{{ item.status }}</p>
 {% endfor %}
+<!--<form action="/your-name/" method="post">-->
+<!--    <label for="your_name">Your name: </label>-->
+<!--    <input id="your_name" type="text" name="your_name" value="{{ holder__username }}">-->
+<!--    <input type="submit" value="OK">-->
+<!--</form>-->
 </body>
 </html>
