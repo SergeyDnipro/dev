@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Главная{% endblock %}Ежедневник</title>
+</head>
+<body>
+    <header>
+        <h1>Records in database</h1>
+    </header>
+    <nav>
+        <a href="{% url 'start_page' %}">На главную</a>
+        <a href="{% url 'add_record' %}">Добавить запись</a>
+        {% for user in users %}
+        <a href="{% url 'user_page' user.username %}">{{ user.username }}</a>
+        {% endfor %}
+    </nav>
+    <section>
+        {% block content %}
+        {% endblock %}
+    </section>
+</body>
+</html>

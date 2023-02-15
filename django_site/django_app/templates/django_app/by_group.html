@@ -2,26 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ holder__username }}</title>
+    <title>USER - {{ holder__username }}</title>
 </head>
 <body>
     <p>
-        <table width="50%" align="center" border="1">
+        <table width="50%" align="center" border="1" cellspacing="0">
         <tr>
-            <td align="center"><a href="/">ALL</a></td>
+            <td align="center"><a href="{% url 'start_page' %}">ALL</a></td>
+            <td align="center"><a href="{% url 'add_record' %}"> Добавить запись </a></td>
         {% for user in users %}
-            <td align="center"><a href="/{{ user.username }}/">{{ user.username }}</a></td>
+            <td align="center"><a href="{% url 'user_page' user.username %}">{{ user.username }}</a></td>
         {% endfor %}
         </tr>
         </table>
     </p>
-        <table width="50%" align="center" border="1">
+        <table width="50%" align="center" border="1" cellspacing="0">
     {% for item in items %}
         <tr>
-            <td><a href="{{ item.id }}/">{{ item.created|date:"d.m.Y" }}</a></td>
+            <td><a href="{% url 'element_page' item.id %}">{{ item.created|date:"d.m.Y" }}</a></td>
             <td>{{ item.holder }}</td>
             <td>{{ item.description }}</td>
             <td>{{ item.status }}</td>
+            <td>{{ item.schedule_group.description }}</td>
         </tr>
     {% empty %}
         <tr> No Task </tr>
