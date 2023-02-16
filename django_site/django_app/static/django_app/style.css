@@ -26,3 +26,9 @@ section {
     font-family: Arial, serif;
     font-size: 12pt;
 }
+
+.table_header_class {
+    font-family: Arial, serif;
+    font-weight: bold;
+    font-size: 14pt;
+}

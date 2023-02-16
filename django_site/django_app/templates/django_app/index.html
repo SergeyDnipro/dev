@@ -2,6 +2,13 @@
 
 {% block content %}
 <table width="80%" align="center" border="1" cellspacing="0">
+    <tr class="table_header_class">
+        <td>Creating date</td>
+        <td>Username</td>
+        <td>Description</td>
+        <td>Status</td>
+        <td>Group</td>
+    </tr>
 {% for item in items %}
     <tr>
         <td><a href="{% url 'element_page' item.id %}">{{ item.created|date:"d.m.y" }}</a></td>
@@ -9,7 +16,7 @@
         <td>{{ item.description }}</td>
         <td>{{ item.status }}</td>
         <td>{{ item.schedule_group.description }}</td>
-        </tr>
+    </tr>
 {% empty %}
         <tr> No Task </tr>
 {% endfor %}

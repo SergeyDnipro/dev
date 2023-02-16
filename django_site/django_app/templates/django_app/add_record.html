@@ -5,7 +5,9 @@
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="SAVE">
+    <button type="submit">SAVE</button>
+    <button type="submit" formaction="{% url 'delete_record' result.id %}">Delete</button>
 </form>
+    <a href="{% url 'delete_record' result.id %}">Delete record</a>
 </div>
 {% endblock %}}

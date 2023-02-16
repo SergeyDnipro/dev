@@ -1,0 +1,12 @@
+{% extends 'django_app/layout/basic.html' %}
+
+{% block content %}
+<div class="my_own_class">
+<h1>Record Delete</h1>
+<form method="post">
+    {% csrf_token %}
+    Are you sure you want to delete "{{ object.id }}" ?
+    <input type="submit" value="Submit" />
+</form>
+</div>
+{% endblock %}}

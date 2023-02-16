@@ -3,7 +3,7 @@ from django_app.forms.SingleRecordForm import SingleRecordForm, SingleEditRecord
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django_app.models.ScheduleRecord import Record
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 
 class SingleRecordCreateView(CreateView):
@@ -16,9 +16,14 @@ class SingleRecordCreateView(CreateView):
         context['users'] = User.objects.all()
         return context
 
-    def form_valid(self, form):
-        form.instance.holder = self.request.user
-        return super(SingleRecordCreateView, self).form_valid(form)
+    def get_initial(self):
+        user = get_object_or_404(User, id=1)
+        self.initial.update({'holder': user})
+        return super(SingleRecordCreateView, self).get_initial()
+
+    # def form_valid(self, form):
+    #     form.instance.holder = self.request.user
+    #     return super(SingleRecordCreateView, self).form_valid(form)
 
 
 class SingleRecordUpdateView(UpdateView):
@@ -38,7 +43,7 @@ def edit_record_view(request, **kwargs):
     users = User.objects.all()
 
     if request.method == 'GET':
-        context = {'form': SingleEditRecordForm(instance=result), 'users': users}
+        context = {'form': SingleEditRecordForm(instance=result), 'users': users, 'result': result}
         return render(request, 'django_app/add_record.html', context)
     if request.method == 'POST':
         form = SingleEditRecordForm(request.POST, instance=result)

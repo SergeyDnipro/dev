@@ -1,6 +1,5 @@
 from django.forms import ModelForm
 from django_app.models.ScheduleRecord import Record
-from django.contrib.auth.models import User
 
 
 class SingleRecordForm(ModelForm):
@@ -15,7 +14,7 @@ class SingleRecordForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['description'].initial = 'Desc'
+        self.fields['description'].initial = 'Description'
 
 
 class SingleEditRecordForm(ModelForm):
