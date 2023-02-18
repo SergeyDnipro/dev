@@ -14,6 +14,7 @@ class SingleRecordForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['description'].widget.attrs.update(size=50)
         self.fields['description'].initial = 'Description'
 
 
@@ -21,6 +22,7 @@ class SingleEditRecordForm(ModelForm):
     class Meta:
         model = Record
         fields = (
+            'id',
             'holder',
             'description',
             'status',
@@ -29,4 +31,7 @@ class SingleEditRecordForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['description'].widget.attrs.update(size=50)
+        self.fields['id'].widget.attrs.update(size=30)
         self.fields['holder'].disabled = True
+        self.fields['id'].disabled = True

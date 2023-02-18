@@ -14,6 +14,7 @@ class SingleRecordCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['users'] = User.objects.all()
+        # context['ids'] = [temp_id.id for temp_id in Record.objects.all()]
         return context
 
     def get_initial(self):
@@ -41,9 +42,10 @@ class SingleRecordUpdateView(UpdateView):
 def edit_record_view(request, **kwargs):
     result = Record.objects.get(**kwargs)
     users = User.objects.all()
+    ids = [temp_id.id for temp_id in Record.objects.all()]
 
     if request.method == 'GET':
-        context = {'form': SingleEditRecordForm(instance=result), 'users': users, 'result': result}
+        context = {'form': SingleEditRecordForm(instance=result), 'users': users, 'result': result, 'ids': ids}
         return render(request, 'django_app/add_record.html', context)
     if request.method == 'POST':
         form = SingleEditRecordForm(request.POST, instance=result)

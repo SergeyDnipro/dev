@@ -7,6 +7,7 @@ header h1 {
 
 nav {
     font-size: 12pt;
+    font-family: Arial, serif;
     width: 200px;
     float: left;
 }
@@ -17,7 +18,7 @@ nav a {
 }
 
 section {
-    margin-left: 300px;
+    margin-left: 200px;
     font-family: Arial, serif;
 }
 
