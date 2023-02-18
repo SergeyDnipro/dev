@@ -18,12 +18,12 @@ nav a {
 }
 
 section {
-    margin-left: 200px;
+    margin-left: 100px;
     font-family: Arial, serif;
 }
 
 .my_own_class {
-    margin-left: 50px;
+    margin-left: 100px;
     font-family: Arial, serif;
     font-size: 12pt;
 }
