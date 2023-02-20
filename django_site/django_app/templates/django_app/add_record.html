@@ -6,9 +6,10 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Save</button>
-</form>
-{% if result.id in ids %}
+</form><br>
+{% if user_auth %}
     <a href="{% url 'delete_record' result.id %}"><button type="submit">Delete</button></a>
+    <a href="{% url 'user_page' result.holder %}"><button type="submit">Back to user records</button></a>
 {% endif %}
 </div>
 {% endblock %}}

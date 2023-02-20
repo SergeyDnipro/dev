@@ -14,11 +14,13 @@ class SingleRecordCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['users'] = User.objects.all()
+        context['user'] = self.request.user
         # context['ids'] = [temp_id.id for temp_id in Record.objects.all()]
         return context
 
     def get_initial(self):
-        user = get_object_or_404(User, id=1)
+        user = self.request.user
+        # user = get_object_or_404(User, id=1)
         self.initial.update({'holder': user})
         return super(SingleRecordCreateView, self).get_initial()
 
@@ -42,10 +44,14 @@ class SingleRecordUpdateView(UpdateView):
 def edit_record_view(request, **kwargs):
     result = Record.objects.get(**kwargs)
     users = User.objects.all()
-    ids = [temp_id.id for temp_id in Record.objects.all()]
+    user_auth = request.user.is_authenticated
 
     if request.method == 'GET':
-        context = {'form': SingleEditRecordForm(instance=result), 'users': users, 'result': result, 'ids': ids}
+        context = {
+            'form': SingleEditRecordForm(instance=result),
+            'users': users, 'result': result,
+            'user_auth': user_auth,
+                   }
         return render(request, 'django_app/add_record.html', context)
     if request.method == 'POST':
         form = SingleEditRecordForm(request.POST, instance=result)
