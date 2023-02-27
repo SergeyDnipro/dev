@@ -1,8 +1,11 @@
 from django.forms import ModelForm
+from django import forms
 from django_app.models.ScheduleRecord import Record
 
 
 class SingleRecordForm(ModelForm):
+    schedule_group = forms.CharField(max_length=20, required=False, empty_value=None)
+
     class Meta:
         model = Record
         fields = (
