@@ -1,6 +1,6 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django_app.forms.SingleRecordForm import SingleRecordForm, SingleEditRecordForm
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth.models import User
 from django_app.models.ScheduleRecord import Record
 from django.shortcuts import render, redirect, get_object_or_404
@@ -57,6 +57,6 @@ def edit_record_view(request, **kwargs):
         form = SingleEditRecordForm(request.POST, instance=result)
         if form.is_valid():
             form.save()
-            return redirect('start_page')
+            return redirect(reverse('user_page', kwargs={'holder__username': form.cleaned_data['holder']}))
         else:
             return render(request, 'django_app/add_record.html', {'form': form})

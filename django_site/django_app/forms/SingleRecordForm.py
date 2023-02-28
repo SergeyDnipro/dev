@@ -4,7 +4,7 @@ from django_app.models.ScheduleRecord import Record
 
 
 class SingleRecordForm(ModelForm):
-    schedule_group = forms.CharField(max_length=20, required=False, empty_value=None)
+    schedule_group = forms.CharField(max_length=20, required=False, empty_value=None, label='GROUP')
 
     class Meta:
         model = Record
