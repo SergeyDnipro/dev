@@ -10,7 +10,11 @@
         <td width="15%">Group</td>
     </tr>
 {% for item in items %}
+    {% if item.status == 'COMPLETED' %}
+    <tr class="completed">
+    {% else %}
     <tr>
+    {% endif %}
         <td><a href="{% url 'element_page' item.id %}">{{ item.created|date:"d.m.y" }}</a></td>
         <td>{{ item.holder }}</td>
         <td>{{ item.description }}</td>

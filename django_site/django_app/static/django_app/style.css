@@ -33,3 +33,7 @@ section {
     font-weight: bold;
     font-size: 14pt;
 }
+
+.completed {
+    background: lightgreen;
+}
