@@ -4,7 +4,10 @@
 <div class="my_own_class">
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    <table class="table_class">
+    {{ form.errors }}
+    {{ form.as_table}}
+    </table>
     <button type="submit">Save</button>
 </form><br>
 {% if user_auth %}

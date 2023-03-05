@@ -37,3 +37,7 @@ section {
 .completed {
     background: lightgreen;
 }
+
+.table_class {
+    text-align: left;
+}
