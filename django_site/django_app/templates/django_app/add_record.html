@@ -4,9 +4,14 @@
 <div class="my_own_class">
 <form method="POST">
     {% csrf_token %}
-    <table class="table_class">
+    <table>
     {{ form.errors }}
-    {{ form.as_table}}
+    {% for fields in form %}
+        <tr>
+            <td class="table_class">{{ fields.label_tag }}</td>
+            <td>{{ fields }}</td>
+        </tr>
+    {% endfor %}
     </table>
     <button type="submit">Save</button>
 </form><br>
