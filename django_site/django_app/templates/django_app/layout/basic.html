@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'django_app/style.css' %}">
 </head>
 <body>
+{% if request.user.username %}
     <header>
         <h1>Records in home database</h1>
     </header>
@@ -21,5 +22,8 @@
         {% block content %}
         {% endblock %}
     </section>
+{% else %}
+ACCESS DENIED
+{% endif %}
 </body>
 </html>
