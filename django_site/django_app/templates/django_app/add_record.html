@@ -13,7 +13,8 @@
         </tr>
     {% endfor %}
     </table>
-    <button type="submit">Save</button>
+    <button type="submit" name="save">Save</button>
+    <button type="submit" name="delete">Delete</button>
 </form><br>
 {% if user_auth %}
     <a href="{% url 'delete_record' result.id %}"><button type="submit">Delete</button></a>

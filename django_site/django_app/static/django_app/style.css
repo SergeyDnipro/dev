@@ -26,7 +26,10 @@ section {
     margin-left: 100px;
     font-family: Arial, serif;
     font-size: 12pt;
-}
+    }
+    .delete_class {
+        margin-left: 200px;
+    }
 
 .table_header_class {
     font-family: Arial, serif;

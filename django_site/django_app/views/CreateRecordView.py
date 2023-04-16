@@ -4,6 +4,7 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.auth.models import User
 from django_app.models.ScheduleRecord import Record
 from django.shortcuts import render, redirect, get_object_or_404
+from django_app.task.msg_to_telegram import msg_to_telegram, msg_to_channel
 
 
 class SingleRecordCreateView(CreateView):
@@ -45,6 +46,7 @@ def edit_record_view(request, **kwargs):
     result = Record.objects.get(**kwargs)
     users = User.objects.all()
     user_auth = request.user.is_authenticated
+    old_status = result.status
 
     if request.method == 'GET':
         context = {
@@ -55,8 +57,15 @@ def edit_record_view(request, **kwargs):
         return render(request, 'django_app/add_record.html', context)
     if request.method == 'POST':
         form = SingleEditRecordForm(request.POST, instance=result)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('user_page', kwargs={'holder__username': form.cleaned_data['holder']}))
-        else:
-            return render(request, 'django_app/add_record.html', {'form': form})
+        if 'delete' in request.POST:
+            res = form.save(commit=False)
+            return redirect(reverse('delete_record', kwargs={'pk': res.id}))
+        if 'save' in request.POST:
+            if form.is_valid():
+                res = form.save(commit=False)
+                if res.status != old_status:
+                    msg_to_telegram(f"Status changed {res.id} {old_status} -> {res.status}")
+                form.save()
+                return redirect(reverse('user_page', kwargs={'holder__username': form.cleaned_data['holder']}))
+            else:
+                return render(request, 'django_app/add_record.html', {'form': form})

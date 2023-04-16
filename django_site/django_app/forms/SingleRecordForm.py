@@ -21,11 +21,11 @@ class SingleRecordForm(ModelForm):
         self.fields['description'].widget.attrs.update(size=50)
         self.fields['description'].initial = 'Description'
 
-    def clean_description(self):
-        data = self.cleaned_data['description']
-        if data != '123':
-            raise ValidationError(' Incorrect value')
-        return data
+    # def clean_description(self):
+    #     data = self.cleaned_data['description']
+    #     if data != '123':
+    #         raise ValidationError(' Incorrect value')
+    #     return data
 
 
 class SingleEditRecordForm(ModelForm):

@@ -19,11 +19,13 @@
         {% endfor %}
     </nav>
     <section>
+
         {% block content %}
         {% endblock %}
     </section>
 {% else %}
 ACCESS DENIED
 {% endif %}
+<!--<img src="{% static 'django_app/img1.jpg' %}">-->
 </body>
 </html>

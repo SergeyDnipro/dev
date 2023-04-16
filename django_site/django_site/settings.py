@@ -123,3 +123,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+TELEGRAM_BOT_TOKEN = '5603456251:AAER2H_ALwag2opjfE9yN2lJSRTiA5VhgIU'
+TELEGRAM_CHAT_ID = 5218003772
