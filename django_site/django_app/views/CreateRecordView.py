@@ -25,6 +25,10 @@ class SingleRecordCreateView(CreateView):
         self.initial.update({'holder': user})
         return super(SingleRecordCreateView, self).get_initial()
 
+    def post(self, request, *args, **kwargs):
+        print(type(self.request.POST.dict()['schedule_group']))
+        return super(SingleRecordCreateView, self).post(request, *args, **kwargs)
+
     # def form_valid(self, form):
     #     form.instance.holder = self.request.user
     #     return super(SingleRecordCreateView, self).form_valid(form)
@@ -63,6 +67,7 @@ def edit_record_view(request, **kwargs):
         if 'save' in request.POST:
             if form.is_valid():
                 res = form.save(commit=False)
+                print(form.cleaned_data['schedule_group'].description)
                 if res.status != old_status:
                     msg_to_telegram(f"Status changed {res.id} {old_status} -> {res.status}")
                 form.save()

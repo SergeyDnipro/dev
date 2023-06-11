@@ -1,0 +1,11 @@
+{% extends 'django_app/layout/basic.html' %}
+
+{% block content %}
+<form method="POST" action="">
+  {% csrf_token %}
+  <table>
+  {{ items }}
+  </table>
+  <input type="submit" value="save" name="delete">
+</form>
+{% endblock %}
