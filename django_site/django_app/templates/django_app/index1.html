@@ -4,8 +4,14 @@
 <form method="POST" action="">
   {% csrf_token %}
   <table>
-  {{ items }}
+    {% for item in items %}
+  {{ item }} - deleted<br>
+    {% endfor %}
+    <br>
+    {% for item in items1 %}
+  {{ item }} - changed<br>
+    {% endfor %}
   </table>
-  <input type="submit" value="save" name="delete">
+  <input type="submit" value="delete" name="delete">
 </form>
 {% endblock %}

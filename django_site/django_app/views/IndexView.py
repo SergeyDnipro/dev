@@ -29,7 +29,10 @@ class StartPage(TemplateView):
 
 
 def formset_view(request):
+    changed_records = []
     formset = modelformset_factory(Record, fields=['id', 'holder', 'schedule_group', 'description', 'status'], can_delete=True)
+    if 'delete' in request.POST:
+        print(request.POST)
     if request.method == 'POST':
         formview = formset(request.POST)
         if formview.is_valid():
@@ -40,8 +43,10 @@ def formset_view(request):
                 return redirect('start_page')
             formview.save(commit=False)
             deleted_records = formview.deleted_objects
-            print(formview.deleted_objects)
-            return render(request, 'django_app/index1.html', {"items": formview.deleted_objects})
+            for element in formview.changed_objects:
+                changed_records.append(element[0])
+            print(deleted_records)
+            return render(request, 'django_app/index1.html', {"items": deleted_records, "items1": changed_records})
     formview = formset()
     return render(request, 'django_app/index.html', {"items": formview})
 
