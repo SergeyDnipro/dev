@@ -5,7 +5,10 @@
 <h1>Record Delete</h1>
 <form method="post">
     {% csrf_token %}
-    Are you sure you want to delete "{{ object }}" ?
+    Are you sure you want to delete:<br>
+    {% for el in object %}
+    {{ el.holder }} - {{ el.description }}<br>
+    {% endfor %}
     <input type="submit" value="Submit" />
 </form>
 </div>

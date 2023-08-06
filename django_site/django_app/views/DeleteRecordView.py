@@ -10,8 +10,22 @@ class DeleteRecordView(DeleteView):
     model = Record
     success_url = reverse_lazy('start_page')
 
+    def get_queryset(self):
+        self.queryset = Record.objects.all()
+        return self.queryset
+
+    def get_object(self, queryset=None):
+        return self.get_queryset()
+
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        if self.request.user != self.object.holder:
+        print(self.object)
+        if self.request.user != self.object[0].holder:
             return render(request, 'django_app/record_restrict_delete.html', {'object': self.object})
         return super().get(self)
+
+    def post(self, request, *args, **kwargs):
+        self.items_to_del = self.request.POST.getlist('is_checked')
+        print(self.items_to_del)
+        return self.get(self, *args, **kwargs)
+

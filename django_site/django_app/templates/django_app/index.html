@@ -7,13 +7,14 @@
 <table width="80%" align="center" border="1" cellspacing="0">
     <tr class="table_header_class">
         <td width="15%">Creating date</td>
-        <td width="15%">Username</td>
+        <td width="10%">Username</td>
         <td width="40%">Description</td>
         <td width="15%">Status</td>
         <td width="15%">Group</td>
+        <td width="5%">Check</td>
     </tr>
 {% for item in items %}
-    {% if item.status.value == 'COMPLETED' %}
+    {% if item.status == 'COMPLETED' %}
     <tr class="completed">
     {% else %}
     <tr>
@@ -29,6 +30,6 @@
         <tr> No Task </tr>
 {% endfor %}
 </table>
-      <input type="submit" value="save">
+      <input type="submit" value="save" name="save">
 </form>
 {% endblock %}
