@@ -1,20 +1,22 @@
 {% extends 'django_app/layout/basic.html' %}
-
+{% load django_bootstrap5 %}
 {% block content %}
 <div class="my_own_class">
 <form method="POST">
     {% csrf_token %}
-    <table>
-    {{ form.errors }}
-    {% for fields in form %}
-        <tr>
-            <td class="table_class">{{ fields.label_tag }}</td>
-            <td>{{ fields }}</td>
-        </tr>
-    {% endfor %}
-    </table>
-    <button type="submit" name="save">Save</button>
-    <button type="submit" name="delete">Delete</button>
+<!--    <table>-->
+<!--    {{ form.errors }}-->
+<!--    {% for fields in form %}-->
+<!--        <tr>-->
+<!--            <td class="table_class">{{ fields.label_tag }}</td>-->
+<!--            <td>{{ fields }}</td>-->
+<!--        </tr>-->
+<!--    {% endfor %}-->
+<!--    </table>-->
+<!--    <button type="submit" name="save">Save</button>-->
+<!--    <button type="submit" name="delete">Delete</button>-->
+    {% bootstrap_form form %}
+    {% bootstrap_button "Save" name="save" button_type="submit" button_class="btn-primary" %}
 </form><br>
 {% if user_auth %}
     <a href="{% url 'delete_record' result.id %}"><button type="submit">Delete</button></a>

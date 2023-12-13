@@ -1,0 +1,33 @@
+{% extends 'django_app/layout/basic.html' %}
+
+{% block content %}
+<form method="post" action=".">
+{% csrf_token %}
+<table width="80%" align="center" border="1" cellspacing="0">
+    <tr class="table_header_class">
+        <td width="15%">Creating date</td>
+        <td width="15%">Username</td>
+        <td width="40%">Description</td>
+        <td width="15%">Status</td>
+        <td width="15%">Group</td>
+    </tr>
+{% for item in object %}
+    {% if item.status.value == 'COMPLETED' %}
+    <tr class="completed">
+    {% else %}
+    <tr>
+    {% endif %}
+        <td><a href="{% url 'element_page' item.id %}">{{ item.id }}</a></td>
+        <td>{{ item.holder }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.schedule_group }}</td>
+        <td><input type="hidden" name="delete_list" value="{{ item.id }}"></td>
+    </tr>
+{% empty %}
+        <tr> No Task </tr>
+{% endfor %}
+</table>
+        <button type="submit" name="confirm_delete" value="confirm_delete">Confirm delete</button>
+</form>
+{% endblock %}

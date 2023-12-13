@@ -1,12 +1,46 @@
 {% extends 'django_app/layout/basic.html' %}
-
+{% load django_bootstrap5 %}
 {% block content %}
-{% load bootstrap4 %}
 
-<form method="post">
-    {% csrf_token %}
-    {% bootstrap_formset items layout='horizontal' %}
-    {% buttons submit='ADD BUTTON' reset='RESET' %} {% endbuttons %}
+<form method="post" action="{% url 'confirm_delete' %}">
+    <script>
+        $('#selectall').click(function () {
+            if (this.checked) {
+                console.log(this.checked)
+                $(':checkbox').prop('checked', true);
+            } else {
+                console.log(this.checked)
+                $(':checkbox').prop('checked', false);
+            }
+        });
+    </script>
+{% csrf_token %}
+<table width="80%" align="center" border="1" cellspacing="0">
+    <tr class="table_header_class">
+        <td width="15%">Creating date</td>
+        <td width="15%">Username</td>
+        <td width="40%">Description</td>
+        <td width="15%">Status</td>
+        <td width="15%">Group</td>
+        <td><input type="checkbox" name="selectall" id="selectall"></td>
+    </tr>
+{% for item in items %}
+    {% if item.status.value == 'COMPLETED' %}
+    <tr class="completed">
+    {% else %}
+    <tr>
+    {% endif %}
+        <td><a href="{% url 'element_page' item.id %}">{{ item.id }}</a></td>
+        <td>{{ item.holder }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.schedule_group }}</td>
+        <td><input type="checkbox" name="delete_list" value="{{ item.id }}"></td>
+    </tr>
+{% empty %}
+        <tr> No Task </tr>
+{% endfor %}
+</table>
+        <button type="submit" name="save_record">Delete selected</button>
 </form>
-    {% bootstrap_alert content='<p>TEST</p>' %}
 {% endblock %}

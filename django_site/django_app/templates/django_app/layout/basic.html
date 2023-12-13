@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 {% load static %}
-{% load bootstrap4 %}
-
+{% load django_bootstrap5 %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Главная{% endblock %}Ежедневник</title>
     <link rel="stylesheet" type="text/css" href="{% static 'django_app/style.css' %}">
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script>
+        $('#selectall').click(function (event) {
+            if (this.checked) {
+                console.log(this.checked)
+                $(':checkbox').prop('checked', true);
+            } else {
+                console.log(this.checked)
+                $(':checkbox').prop('checked', false);
+            }
+        });
+    </script>
 </head>
 <body>
 {% if request.user.username %}

@@ -1,18 +1,16 @@
 from django_app.models.ScheduleRecord import Record
 from django.contrib.auth.models import User
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django_app.task.msg_to_telegram import msg_to_telegram
 from django.forms import modelformset_factory, formset_factory
 from django.shortcuts import render, redirect, reverse
 from django.views.generic.edit import DeleteView
-
-
-class Delete(DeleteView):
-    pass
+from django.db import IntegrityError
+from django.urls import reverse_lazy
 
 
 class StartPage(TemplateView):
-    template_name = 'django_app/index.html'
+    template_name = 'django_app/index2.html'
 
     # def __init__(self, **kwargs):
     #     super().__init__(**kwargs)
@@ -30,54 +28,91 @@ class StartPage(TemplateView):
     def get_context_data(self, **kwargs):
         result = Record.objects.all().order_by('holder__username')
         users = User.objects.all()
-        print(users)
         return {'items': result, 'users': users}
 
+
+class ConfirmDelete(DeleteView):
+    template_name = 'django_app/multi_delete_confirm.html'
+    model = Record
+    success_url = reverse_lazy('start_page')
+    delete_list = []
+
+    def get(self, request, *args, **kwargs):
+        print(self.request.POST)
+        return super(ConfirmDelete, self).get(self, *args, **kwargs)
+
+    def get_queryset(self):
+        queryset = super(ConfirmDelete, self).get_queryset()
+        self.queryset = queryset.filter(id__in=self.delete_list)
+        return self.queryset
+
+    def get_object(self, queryset=None):
+        return self.get_queryset()
+
     def post(self, request, *args, **kwargs):
-        self.checked = self.request.POST.getlist('checkbox')
-        print(self.checked)
-        print(self.request.POST.get('save'))
-        self.request.session['test'] = self.request.POST.get('save')
-        return redirect(reverse('confirm_delete'))
+        self.delete_list = self.request.POST.getlist('delete_list')
+        print(self.delete_list)
+        if self.request.POST.get('confirm_delete'):
+            result = self.get_queryset()
+            print(result)
+            result.delete()
+            return redirect(reverse('start_page'))
+        return self.get(self, *args, **kwargs)
 
 
-def formset_view(request, **kwargs):
+def formset_view(request):
+    users = User.objects.all()
     changed_records = []
     formset = modelformset_factory(
         Record,
         fields=['id', 'holder', 'schedule_group', 'description', 'status'],
         can_delete=True,
-        extra=0,
+        extra=0
     )
-    if 'delete' in request.POST:
-        print(request.POST)
+    # if 'delete' in request.POST:
+    #     print(request.POST)
     if request.method == 'POST':
         formview = formset(request.POST)
-        print(formview.is_valid())
+        print(formview)
         if formview.is_valid():
-            # if 'delete' in request.POST:
-            #     for el in formview.deleted_objects:
-            #         print(el)
-            #         el.delete()
-            #     return redirect('start_page')
+            # print(formview)
+            if 'delete' in request.POST:
+                for el in formview.deleted_objects:
+                    print(el)
+                    el.delete()
+                return redirect('start_page')
             formview.save(commit=False)
-            request.session['rec1'] = 1
             deleted_records = formview.deleted_objects
-            serialized_records = [el for el in deleted_records]
             for element in formview.changed_objects:
                 changed_records.append(element[0])
-            print(deleted_records)
-            request.session['rec1'] = serialized_records
-            return redirect(reverse('confirm_delete'))
+            # print(deleted_records)
+            # print(changed_records)
+            # print(formview.changed_objects)
+            return render(request, 'django_app/index1.html', {"items": deleted_records, "items1": changed_records})
     formview = formset()
-    return render(request, 'django_app/index.html', {"items": formview})
+    return render(request, 'django_app/index.html', {"items": formview, 'users': users})
 
 
 def confirm_delete(request, **kwargs):
-    formview = request.session['test']
-    print(formview + 'new view')
+    formview = kwargs['form']
+    deleted_view = kwargs['form'].deleted_objects
     if request.method == 'POST':
-        print(formview)
+        formview.save()
         return redirect('start_page')
     else:
-        return render(request, 'django_app/index.html', {"items": formview})
+        return render(request, 'django_app/index.html', {"items": deleted_view})
+
+
+class BulkEditView(DeleteView):
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.queryset = Record.objects.filter(**kwargs)
+        except IntegrityError:
+            self.queryset = Record.objects.all()
+        result = self.queryset
+        users = User.objects.all()
+        return render(request, 'django_app/index.html', {'items': result, 'users': users})
+
+    def post(self, request, *args, **kwargs):
+        pass

@@ -61,10 +61,13 @@ def edit_record_view(request, **kwargs):
         return render(request, 'django_app/add_record.html', context)
     if request.method == 'POST':
         form = SingleEditRecordForm(request.POST, instance=result)
+        print(form)
+        print(request.POST)
         if 'delete' in request.POST:
             res = form.save(commit=False)
             return redirect(reverse('delete_record', kwargs={'pk': res.id}))
         if 'save' in request.POST:
+            print(request.POST)
             if form.is_valid():
                 res = form.save(commit=False)
                 print(form.cleaned_data['schedule_group'].description)
