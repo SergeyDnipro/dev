@@ -1,34 +1,37 @@
 {% extends 'django_app/layout/basic.html' %}
-
+{% load django_bootstrap5 %}
 {% block content %}
 <form method="post">
     {% csrf_token %}
-    {{ items.management_form }}
-<table width="80%" align="center" border="1" cellspacing="0">
-    <tr class="table_header_class">
-        <td width="15%">Creating date</td>
-        <td width="15%">Username</td>
-        <td width="40%">Description</td>
-        <td width="15%">Status</td>
-        <td width="15%">Group</td>
-    </tr>
-{% for item in items %}
-    {% if item.status.value == 'COMPLETED' %}
-    <tr class="completed">
-    {% else %}
-    <tr>
-    {% endif %}
-        <td><a href="{% url 'element_page' item.id.value %}">{{ item.id }}</a></td>
-        <td>{{ item.holder }}</td>
-        <td>{{ item.description }}</td>
-        <td>{{ item.status }}</td>
-        <td>{{ item.schedule_group }}</td>
-        <td>{{ item.DELETE }}</td>
-    </tr>
-{% empty %}
-        <tr> No Task </tr>
-{% endfor %}
-</table>
-      <input type="submit" value="save">
+    <!--    {{ items.management_form }}-->
+    <table width="80%" align="center" border="1" cellspacing="0">
+        <tr class="table_header_class">
+            <td width="15%">Creating date</td>
+            <td width="15%">Username</td>
+            <td width="40%">Description</td>
+            <td width="15%">Status</td>
+            <td width="15%">Group</td>
+        </tr>
+        {% for item in items %}
+        {% if item.status.value == 'COMPLETED' %}
+        <tr class="completed">
+            {% else %}
+        <tr>
+            {% endif %}
+            <td><a href="{% url 'element_page' item.id.value %}">{{ item.id }}</a></td>
+            <td>{{ item.holder }}</td>
+            <td>{{ item.description }}</td>
+            <!--        <td>{% bootstrap_field item.status show_label=False size='sm' %}</td>-->
+            <td>{{ item.status }}</td>
+            <td>{{ item.schedule_group }}</td>
+            <td>{{ item.DELETE }}</td>
+        </tr>
+        {% empty %}
+        <tr> No Task</tr>
+        {% endfor %}
+    </table>
+    <!--      <input type="submit" value="save">-->
+    <!--    {% bootstrap_formset items layout='horizontal' %}-->
+    {% bootstrap_button "Save" name="save" button_type="submit" button_class="btn-primary" %}
 </form>
 {% endblock %}

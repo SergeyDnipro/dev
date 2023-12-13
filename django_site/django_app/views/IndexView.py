@@ -61,6 +61,7 @@ class ConfirmDelete(DeleteView):
 
 
 def formset_view(request):
+    users = User.objects.all()
     changed_records = []
     formset = modelformset_factory(
         Record,
@@ -72,8 +73,9 @@ def formset_view(request):
     #     print(request.POST)
     if request.method == 'POST':
         formview = formset(request.POST)
-        print(request.POST)
+        print(formview)
         if formview.is_valid():
+            # print(formview)
             if 'delete' in request.POST:
                 for el in formview.deleted_objects:
                     print(el)
@@ -83,12 +85,12 @@ def formset_view(request):
             deleted_records = formview.deleted_objects
             for element in formview.changed_objects:
                 changed_records.append(element[0])
-            print(deleted_records)
-            print(changed_records)
-            print(formview.changed_objects)
+            # print(deleted_records)
+            # print(changed_records)
+            # print(formview.changed_objects)
             return render(request, 'django_app/index1.html', {"items": deleted_records, "items1": changed_records})
     formview = formset()
-    return render(request, 'django_app/index.html', {"items": formview})
+    return render(request, 'django_app/index.html', {"items": formview, 'users': users})
 
 
 def confirm_delete(request, **kwargs):

@@ -8,7 +8,7 @@ import requests
 
 
 class GroupPage(TemplateView):
-    template_name = 'django_app/index.html'
+    template_name = 'django_app/index2.html'
 
     def get_context_data(self, **kwargs):
         result = Record.objects.filter(**kwargs)
