@@ -15,7 +15,47 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+LOGGING = {
+    'version': 1,
+    'disable_exisiting_loggers': True,
+    'formatters': {
+        'simple': {
+            'format': '[%(asctime)s] %(levelname)s: %(message)s',
+            'datefmt': '%Y.%m.%d %H:%M:%S',
+        },
+        'sql_format': {
+            'format': '[%(asctime)s] - %(levelname)s - %(sql)s - %(name)s',
+            'datefmt': '%Y.%m.%d %H:%M:%S',
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'console_log': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+            'filters': ['require_debug_true'],
+        },
+        'sql_console_log': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'sql_format',
+            # 'filters': ['require_debug_true'],
+        }
+    },
+    'loggers': {
+        # 'django': {
+        #     'handlers': ['console_log'],
+        # },
+        'django.db.backends': {
+            'handlers': ['sql_console_log'],
+            'level': 'DEBUG',
+            'propagate': True,
+        }
+    }
+}
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
